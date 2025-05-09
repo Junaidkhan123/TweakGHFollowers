@@ -6,17 +6,41 @@
 //
 
 import UIKit
+import SBTUITestTunnelServer
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
+    
+    var environment: [String: String] {
+        return ProcessInfo.processInfo.environment
+    }
+    
+    var isUITest: Bool {
+        return environment["uiTest"] != nil
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        #if DEBUG
+        setupSoftwareKeyboard()
+        if isUITest {
+            SBTUITestTunnelServer.takeOff()
+            UIView.setAnimationsEnabled(false)
+        }
+        #endif
         return true
     }
 
+    private func setupSoftwareKeyboard() {
+#if targetEnvironment(simulator)
+        // Disable hardware keyboards.
+        let setHardwareLayout = NSSelectorFromString("setHardwareLayout:")
+        UITextInputMode.activeInputModes
+        // Filter `UIKeyboardInputMode`s.
+            .filter({ $0.responds(to: setHardwareLayout) })
+            .forEach { $0.perform(setHardwareLayout, with: nil) }
+#endif
+    }
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

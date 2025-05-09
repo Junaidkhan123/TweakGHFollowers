@@ -6,6 +6,14 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		2296C2D72DC936F3007753C7 /* SBTUITestTunnelClient in Frameworks */ = {isa = PBXBuildFile; productRef = 2296C2D62DC936F3007753C7 /* SBTUITestTunnelClient */; };
+		2296C2D92DC936F3007753C7 /* SBTUITestTunnelServer in Frameworks */ = {isa = PBXBuildFile; productRef = 2296C2D82DC936F3007753C7 /* SBTUITestTunnelServer */; };
+		22BA97782DCD60A1008B41E8 /* iOSSnapshotTestCase in Frameworks */ = {isa = PBXBuildFile; productRef = 22BA97772DCD60A1008B41E8 /* iOSSnapshotTestCase */; };
+		22D074C92DC95ECB009E3FC6 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 22D074C82DC95ECB009E3FC6 /* SnapKit */; };
+		22D074CC2DC95EE5009E3FC6 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 22D074CB2DC95EE5009E3FC6 /* SDWebImage */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		2296C2B82DC936BA007753C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -65,6 +73,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22D074CC2DC95EE5009E3FC6 /* SDWebImage in Frameworks */,
+				2296C2D92DC936F3007753C7 /* SBTUITestTunnelServer in Frameworks */,
+				22D074C92DC95ECB009E3FC6 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22BA97782DCD60A1008B41E8 /* iOSSnapshotTestCase in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2296C2D72DC936F3007753C7 /* SBTUITestTunnelClient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +138,9 @@
 			);
 			name = SAMEABC;
 			packageProductDependencies = (
+				2296C2D82DC936F3007753C7 /* SBTUITestTunnelServer */,
+				22D074C82DC95ECB009E3FC6 /* SnapKit */,
+				22D074CB2DC95EE5009E3FC6 /* SDWebImage */,
 			);
 			productName = SAMEABC;
 			productReference = 2296C2A12DC936B9007753C7 /* SAMEABC.app */;
@@ -148,6 +164,7 @@
 			);
 			name = SAMEABCTests;
 			packageProductDependencies = (
+				22BA97772DCD60A1008B41E8 /* iOSSnapshotTestCase */,
 			);
 			productName = SAMEABCTests;
 			productReference = 2296C2B72DC936BA007753C7 /* SAMEABCTests.xctest */;
@@ -171,6 +188,7 @@
 			);
 			name = SAMEABCUITests;
 			packageProductDependencies = (
+				2296C2D62DC936F3007753C7 /* SBTUITestTunnelClient */,
 			);
 			productName = SAMEABCUITests;
 			productReference = 2296C2C12DC936BA007753C7 /* SAMEABCUITests.xctest */;
@@ -208,6 +226,12 @@
 			);
 			mainGroup = 2296C2982DC936B9007753C7;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				2296C2D52DC936F3007753C7 /* XCRemoteSwiftPackageReference "SBTUITestTunnel" */,
+				22D074C72DC95ECB009E3FC6 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				22D074CA2DC95EE5009E3FC6 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				22BA97762DCD60A1008B41E8 /* XCRemoteSwiftPackageReference "ios-snapshot-test-case" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 2296C2A22DC936B9007753C7 /* Products */;
 			projectDirPath = "";
@@ -293,9 +317,8 @@
 				INFOPLIST_FILE = SAMEABC/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -320,9 +343,8 @@
 				INFOPLIST_FILE = SAMEABC/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -563,6 +585,69 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2296C2D52DC936F3007753C7 /* XCRemoteSwiftPackageReference "SBTUITestTunnel" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Subito-it/SBTUITestTunnel.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		22BA97762DCD60A1008B41E8 /* XCRemoteSwiftPackageReference "ios-snapshot-test-case" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/uber/ios-snapshot-test-case.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+		22D074C72DC95ECB009E3FC6 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		22D074CA2DC95EE5009E3FC6 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.21.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2296C2D62DC936F3007753C7 /* SBTUITestTunnelClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2296C2D52DC936F3007753C7 /* XCRemoteSwiftPackageReference "SBTUITestTunnel" */;
+			productName = SBTUITestTunnelClient;
+		};
+		2296C2D82DC936F3007753C7 /* SBTUITestTunnelServer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2296C2D52DC936F3007753C7 /* XCRemoteSwiftPackageReference "SBTUITestTunnel" */;
+			productName = SBTUITestTunnelServer;
+		};
+		22BA97772DCD60A1008B41E8 /* iOSSnapshotTestCase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22BA97762DCD60A1008B41E8 /* XCRemoteSwiftPackageReference "ios-snapshot-test-case" */;
+			productName = iOSSnapshotTestCase;
+		};
+		22D074C82DC95ECB009E3FC6 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22D074C72DC95ECB009E3FC6 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		22D074CB2DC95EE5009E3FC6 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22D074CA2DC95EE5009E3FC6 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2296C2992DC936B9007753C7 /* Project object */;
 }
