@@ -40,7 +40,7 @@ final class MainFlowController: FlowController {
     private func navigateToFollowers(followers: [Follower]) {
         let viewModel = FollowersViewModel(followers: followers) { [weak self] action in
             switch action {
-            case .dismiss:
+            case .close:
                 self?.rootNavigationController?.dismiss(animated: true)
             }
         }

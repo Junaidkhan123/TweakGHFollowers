@@ -12,7 +12,7 @@ protocol FollowersViewModelProtocol {
 }
 
 enum FollowersAction {
-    case dismiss
+    case close
 }
 
 typealias FollowerActionCallbacks = ((FollowersAction) -> Void)
@@ -28,6 +28,6 @@ final class FollowersViewModel: FollowersViewModelProtocol {
     }
     
     func didTapOnDismiss() {
-        actionCallback?(.dismiss)
+        actionCallback?(.close)
     }
 }
