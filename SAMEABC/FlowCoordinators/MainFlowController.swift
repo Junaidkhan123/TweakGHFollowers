@@ -8,24 +8,23 @@
 import UIKit
 final class MainFlowController {
     private weak var navigationController: (NavigationControllerType)?
+    private var searchScreenFactory: SearchScreenFactoryType?
     
     init(navigationController: NavigationControllerType) {
         self.navigationController = navigationController
     }
     
-     func startFlow() {
-        let viewModel = SearchViewModel(networkManager: NetworkManager(),
-                                        searchActionCallback: { [weak self] action in
+    func startFlow() {
+        searchScreenFactory = SearchScreenFactory()
+        guard let viewController = searchScreenFactory?.searchViewBuilder(searchActionCallback: {  [weak self] action in
             switch action {
             case .noFollowers:
                 self?.navigateToNoFollowers()
             case .followers(let followers):
                 self?.navigateToFollowers(followers: followers)
             }
-        })
-        let viewContorller = SearchViewController(viewModel: viewModel)
-        
-         navigationController?.pushVC(viewContorller, animated: true)
+        }) else { return  }
+        navigationController?.pushVC(viewController, animated: true)
     }
     
     private func navigateToNoFollowers() {
