@@ -13,7 +13,7 @@ protocol EmptyViewModelProtocol {
 }
 
 enum EmptyViewControllerAction {
-    case dismiss
+    case close
 }
 
 typealias EmptyViewControllerActionHandler = ((EmptyViewControllerAction) -> Void)
@@ -27,6 +27,6 @@ final class EmptyViewModel: EmptyViewModelProtocol {
     }
     
     func dismissAction() {
-        self.actionHandler?(.dismiss)
+        self.actionHandler?(.close)
     }
 }

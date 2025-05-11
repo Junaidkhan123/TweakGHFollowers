@@ -30,7 +30,7 @@ final class MainFlowController {
     private func navigateToNoFollowers() {
         let noFollowersViewController = EmptyViewController(viewModel: EmptyViewModel(actionHandler: { [weak self] action in
             switch action {
-            case .dismiss:
+            case .close:
                 self?.navigationController?.dismissVC(animated: true)
             }
         }))
