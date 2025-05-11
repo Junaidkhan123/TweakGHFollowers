@@ -7,14 +7,14 @@
 
 import UIKit
 protocol SearchScreenFactoryType {
-    func searchViewBuilder(searchActionCallback: SearchActionCallbacks?) -> UIViewController
+    func searchViewBuilder(searchAction: SearchAction) -> UIViewController
 }
 
 final class SearchScreenFactory: SearchScreenFactoryType {
-    func searchViewBuilder(searchActionCallback: SearchActionCallbacks? = nil) -> UIViewController {
+    func searchViewBuilder(searchAction: SearchAction) -> UIViewController {
         let networkManager = NetworkManager()
         let viewModel = SearchViewModel(networkManager: networkManager,
-                                        searchActionCallback: searchActionCallback)
+                                        searchAction: searchAction)
         return SearchViewController(viewModel: viewModel)
     }
 }

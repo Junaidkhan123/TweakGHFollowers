@@ -16,14 +16,14 @@ final class MainFlowController {
     
     func startFlow() {
         searchScreenFactory = SearchScreenFactory()
-        guard let viewController = searchScreenFactory?.searchViewBuilder(searchActionCallback: {  [weak self] action in
-            switch action {
-            case .noFollowers:
-                self?.navigateToNoFollowers()
-            case .followers(let followers):
-                self?.navigateToFollowers(followers: followers)
-            }
-        }) else { return  }
+        let actions = SearchAction { [weak self] in
+            self?.navigateToNoFollowers()
+        } followers: { [weak self] followers in
+            self?.navigateToFollowers(followers: followers)
+        }
+
+        guard let viewController = searchScreenFactory?.searchViewBuilder(searchAction: actions)
+        else { return  }
         navigationController?.pushVC(viewController, animated: true)
     }
     

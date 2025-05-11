@@ -11,61 +11,58 @@ import XCTest
 final class SearchViewModelTests: XCTestCase {
     var sut: SearchViewModel!
     var mockNetworkManager: NetWorkManagerProtocol!
-    var actions: SearchActions!
     override func setUpWithError() throws {
         mockNetworkManager = MockNetworkManager()
-        sut = SearchViewModel(networkManager: mockNetworkManager, searchActionCallback: { self.actions = $0 })
+        sut = SearchViewModel(networkManager: mockNetworkManager,
+                              searchAction: nil)
     }
 
     override func tearDownWithError() throws {
         mockNetworkManager = nil
         sut = nil
-        actions = nil
         try super.tearDownWithError()
     }
     
     func test_fetchFollowers_whenAPIReturnsEmptyArray_thenShouldInvokeNoFollowersCallback() {
         let expectation = expectation(description: "Wait for fetchFollowers to complete")
         
-        var receivedAction: SearchActions?
-        
         let mockNetwork = MockNetworkManager()
-        let sut = SearchViewModel(networkManager: mockNetwork, searchActionCallback: { action in
-            receivedAction = action
+        var isnoFollowerAction = false
+        
+        let actions = SearchAction {
             expectation.fulfill()
-        })
+            isnoFollowerAction = true
+        } followers: { _ in }
+        
+        let sut = SearchViewModel(networkManager: mockNetwork, searchAction: actions)
         
         sut.fetchFollowers(for: "Junaid")
         
         waitForExpectations(timeout: 1.0)
         
-        guard let action = receivedAction, case .noFollowers = action else {
-            XCTFail("No followers action should be called")
-            return
-        }
+        XCTAssertTrue(isnoFollowerAction, "No follower action should be executed")
     }
     
     func test_fetchFollowers_whenAPIReturnsFollower_thenShouldInvokeFollowersCallback() {
         let expectation = expectation(description: "Wait for fetchFollowers to complete")
-        
-        var receivedAction: SearchActions?
-        
+                
         var mockNetwork = MockNetworkManager()
         mockNetwork.stub = .success(Follower.stub)
         
-        let sut = SearchViewModel(networkManager: mockNetwork, searchActionCallback: { action in
-            receivedAction = action
-            expectation.fulfill()
-        })
+        var expectedFollowers: [Follower]?
         
+        let actions = SearchAction {} followers: {
+            followers in
+            expectation.fulfill()
+            expectedFollowers = followers
+        }
+        
+        let sut = SearchViewModel(networkManager: mockNetwork, searchAction: actions)
         sut.fetchFollowers(for: "Junaid")
         
         waitForExpectations(timeout: 1.0)
         
-        guard let action = receivedAction, case .followers = action else {
-            XCTFail("followers action should be called")
-            return
-        }
+        XCTAssertNotNil(expectedFollowers, "Followers should not be Nil")
     }
 }
 

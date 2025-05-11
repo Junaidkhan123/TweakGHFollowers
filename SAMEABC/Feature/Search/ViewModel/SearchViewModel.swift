@@ -13,22 +13,21 @@ protocol SearchViewModelProtocol {
     var isLoadingCallback: ((Bool) -> Void)? { get set }
 }
 
-enum SearchActions {
-    case noFollowers
-    case followers(followers: [Follower])
+struct SearchAction {
+    var noFollowers: (() -> Void)
+    var followers: (([Follower]) -> Void)
 }
-
-typealias SearchActionCallbacks = ((SearchActions) -> Void)
 
 final class SearchViewModel: SearchViewModelProtocol {
     var isLoadingCallback: ((Bool) -> Void)?
-    private var searchActionCallback: SearchActionCallbacks?
 
     private var networkManager: NetWorkManagerProtocol
+    private var searchAction: SearchAction?
     
-    init(networkManager: NetWorkManagerProtocol, searchActionCallback: SearchActionCallbacks? = nil) {
+    init(networkManager: NetWorkManagerProtocol,
+         searchAction: SearchAction? = nil) {
         self.networkManager = networkManager
-        self.searchActionCallback = searchActionCallback
+        self.searchAction = searchAction
     }
     
     func fetchFollowers(for name: String) {
@@ -45,9 +44,9 @@ final class SearchViewModel: SearchViewModelProtocol {
         switch result {
         case .success(let followers):
             if followers.isEmpty {
-                searchActionCallback?(.noFollowers)
+                searchAction?.noFollowers()
             } else {
-                searchActionCallback?(.followers(followers: followers))
+                searchAction?.followers(followers)
             }
         case .failure(let error):
             print("Error fetching followers: \(error)")
