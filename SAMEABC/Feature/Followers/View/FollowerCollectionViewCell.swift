@@ -41,7 +41,7 @@ final class FollowerCollectionViewCell: UICollectionViewCell {
     func configure(with follower: Follower) {
         userNameLabel.text = follower.login
         avatarImageView.image = nil
-        avatarImageView.sd_setImage(with: follower.avatarURL)
+        avatarImageView.sd_setImage(with: follower.avatarUrl)
         
         detailsLabel.alpha = isSelected ? 1.0 : 0.0
         followButton.alpha = isSelected ? 1.0 : 0.0

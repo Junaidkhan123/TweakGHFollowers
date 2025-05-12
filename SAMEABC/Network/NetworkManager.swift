@@ -36,7 +36,8 @@ class NetworkManager: NetWorkManagerProtocol {
             do {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let followers = try decoder.decode([Follower].self, from: data)
+                let followersDTO = try decoder.decode([FollowerDTO].self, from: data)
+                let followers = followersDTO.map({ FollowerEntityMaker.toFollower(from: $0)})
                 return .success(followers)
             } catch {
                 return .failure(.decodingError)

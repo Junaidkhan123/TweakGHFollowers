@@ -69,7 +69,7 @@ final class SearchViewModelTests: XCTestCase {
 extension Follower {
     static var stub: [Follower] =
     [
-        .init(login: "Junaid", avatarUrl: "www.google.com"),
-        .init(login: "User2", avatarUrl: "www.apple.com")
+        .init(login: "Junaid", avatarUrl: URL(string: "www.google.com")),
+        .init(login: "User2", avatarUrl: URL(string: "www.Apple.com"))
     ]
 }
