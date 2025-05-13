@@ -9,7 +9,6 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var mainFlowController: MainFlowController?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -18,11 +17,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         let navigationController = UINavigationController()
-        mainFlowController = MainFlowController(navigationController: navigationController)
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         
-        mainFlowController?.startFlow()
+        SearchFlowController(navigationController: navigationController).startFlow()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

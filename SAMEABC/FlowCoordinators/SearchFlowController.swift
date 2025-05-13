@@ -6,7 +6,7 @@
 //
 
 import UIKit
-final class MainFlowController {
+final class SearchFlowController {
     private weak var navigationController: (NavigationControllerType)?
     private var searchScreenFactory: SearchScreenFactoryType?
     
@@ -16,10 +16,10 @@ final class MainFlowController {
     
     func startFlow() {
         searchScreenFactory = SearchScreenFactory()
-        let actions = SearchAction { [weak self] in
-            self?.navigateToNoFollowers()
-        } followers: { [weak self] followers in
-            self?.navigateToFollowers(followers: followers)
+        let actions = SearchAction { [self] in
+            self.navigateToNoFollowers()
+        } followers: { [self] followers in
+            self.navigateToFollowers(followers: followers)
         }
 
         guard let viewController = searchScreenFactory?.searchViewBuilder(searchAction: actions)
