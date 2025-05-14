@@ -39,11 +39,6 @@ class TGFButton: UIButton {
         self.init(backgroundColor: backgroundColor)
         configure(with: model)
     }
-    
-    
-//    public var isLoading: Bool = false {
-//        didSet { updateView() }
-//    }
 }
 
 private extension TGFButton {
