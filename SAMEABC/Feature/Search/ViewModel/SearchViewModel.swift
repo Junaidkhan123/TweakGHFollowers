@@ -8,9 +8,10 @@
 import Foundation
 
 protocol SearchViewModelProtocol {
-    func fetchFollowers(for name: String)
-    
+    var searchButtonModel: TGFButton.Model { get }
     var isLoadingCallback: ((Bool) -> Void)? { get set }
+
+    func fetchFollowers(for name: String)    
 }
 
 struct SearchAction {
@@ -24,6 +25,15 @@ final class SearchViewModel: SearchViewModelProtocol {
     private var networkManager: NetWorkManagerProtocol
     private var searchAction: SearchAction?
     
+    private(set) lazy var searchButtonModel: TGFButton.Model = {
+        TGFButton.Model(title: "Get Followers",
+                        accessibiltyIdentifier: "SearchButton",
+                        isLoading: CustomObservable(false)
+        ) { [weak self] in
+            self?.fetchFollowers(for: "JunaidKhan123")
+        }
+    }()
+    
     init(networkManager: NetWorkManagerProtocol,
          searchAction: SearchAction? = nil) {
         self.networkManager = networkManager
@@ -31,7 +41,7 @@ final class SearchViewModel: SearchViewModelProtocol {
     }
     
     func fetchFollowers(for name: String) {
-        isLoadingCallback?(true)
+        searchButtonModel.isLoading.value = true
         Task {
             let result = await networkManager.getFollowers(for: name, page: 1)
             await handleResult(result)
@@ -40,7 +50,7 @@ final class SearchViewModel: SearchViewModelProtocol {
     
     @MainActor
     func handleResult(_ result: Result<[Follower], NetworkError>) {
-        isLoadingCallback?(false)
+        searchButtonModel.isLoading.value = false
         switch result {
         case .success(let followers):
             if followers.isEmpty {

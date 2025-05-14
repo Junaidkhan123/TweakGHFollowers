@@ -88,7 +88,7 @@ private extension FollowerViewController {
     
     func setupCloseButton() {
         containerView.addSubview(closeButton)
-        closeButton.buttonTitle = Constants.buttonTitle
+//        closeButton.buttonTitle = Constants.buttonTitle
         
         closeButton.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(Constants.edgeInset)

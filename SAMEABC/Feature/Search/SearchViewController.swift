@@ -11,7 +11,9 @@ import SnapKit
 final class SearchViewController: UIViewController {
     // MARK: - UI Properties
     private let userNameTextField = TGFTextField()
-    private let searchButton = TGFButton(backgroundColor: .systemGreen)
+    private lazy var  searchButton : TGFButton = {
+        TGFButton(model: viewModel.searchButtonModel, backgroundColor: .systemGreen)
+    }()
     
     private var searchButtonBottomConstraint: Constraint?
     
@@ -24,7 +26,6 @@ final class SearchViewController: UIViewController {
     
     private enum AccessibilityIdentifier {
         static let textFieldIdentifier = "UserNameTextField"
-        static let buttonIdentifier = "SearchButton"
         static let view = "SearchViewController"
     }
     
@@ -44,7 +45,6 @@ final class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        bindViewModel()
         setupKeyboardNotifications()
     }
     
@@ -76,9 +76,7 @@ private extension SearchViewController {
     }
     
     func setupSearchButton() {
-        searchButton.buttonTitle = Constants.buttonTitle
         view.addSubview(searchButton)
-        searchButton.addTarget(self, action: #selector(didTapSearchbutton), for: .touchUpInside)
         searchButton.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(24)
             make.bottom.equalToSuperview().inset(50)
@@ -90,26 +88,10 @@ private extension SearchViewController {
     
     func setupAccessibilityIdentifiers() {
         userNameTextField.accessibilityIdentifier = AccessibilityIdentifier.textFieldIdentifier
-        searchButton.accessibilityIdentifier = AccessibilityIdentifier.buttonIdentifier
-    }
-    
-    @objc
-    func didTapSearchbutton() {
-        guard let userName = userNameTextField.text, !userName.isEmpty else { return }
-        viewModel.fetchFollowers(for: userName)
     }
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
-    }
-}
-
-// MARK: - ViewModel Binding
-private extension SearchViewController {
-    func bindViewModel() {
-        viewModel.isLoadingCallback  = { [weak self] isLoading in
-            self?.searchButton.isLoading = isLoading
-        }
     }
 }
 

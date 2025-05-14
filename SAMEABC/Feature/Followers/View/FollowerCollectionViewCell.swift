@@ -75,7 +75,7 @@ private extension FollowerCollectionViewCell {
         detailsLabel.font = UIFont.systemFont(ofSize: 10)
         detailsLabel.textAlignment = .center
         
-        followButton.buttonTitle = "Follow"
+//        followButton.buttonTitle = "Follow"
         
         stackView.addArrangedSubview(detailsLabel)
         stackView.addArrangedSubview(followButton)

@@ -10,8 +10,16 @@ import SnapKit
 
 class TGFButton: UIButton {
     
-   private var spinner = UIActivityIndicatorView()
-
+    struct Model {
+        var title: String
+        var accessibiltyIdentifier: String
+        var isLoading: CustomObservable<Bool>
+        var action: () -> Void
+    }
+    
+    private var spinner = UIActivityIndicatorView()
+    private var actionHandler: (() -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -27,24 +35,39 @@ class TGFButton: UIButton {
         commonInit()
     }
     
-    public var buttonTitle: String? {
-        didSet {
-            setTitle(buttonTitle, for: .normal)
-        }
+    convenience init(model: Model, backgroundColor: UIColor) {
+        self.init(backgroundColor: backgroundColor)
+        configure(with: model)
     }
     
-    public var isLoading: Bool = false {
-        didSet { updateView() }
-    }
+    
+//    public var isLoading: Bool = false {
+//        didSet { updateView() }
+//    }
 }
 
 private extension TGFButton {
-    private func commonInit() {
+    func commonInit() {
         layer.cornerRadius = 10
         titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
         titleLabel?.textColor = .white
         
+        addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         setupSpinner()
+    }
+    
+    func configure(with model: Model) {
+        setTitle(model.title, for: .normal)
+        accessibilityIdentifier = model.accessibiltyIdentifier
+        actionHandler = model.action
+        model.isLoading.subscribe { [weak self] loading in
+            self?.updateView(loading: loading)
+        }
+    }
+    
+    @objc
+    func didTapButton() {
+        actionHandler?()
     }
     
     func setupSpinner() {
@@ -58,8 +81,8 @@ private extension TGFButton {
         }
     }
     
-    func updateView() {
-        if isLoading {
+    func updateView(loading: Bool) {
+        if loading {
             spinner.startAnimating()
             titleLabel?.alpha = 0
             isEnabled = false
